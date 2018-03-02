@@ -1,0 +1,50 @@
+postgres:
+  tty: true
+  image: postgres
+  stdin_open: true
+  environment:
+    POSTGRES_DB: taiga
+    POSTGRES_USER: taiga
+    POSTGRES_PASSWORD: ${db_password}
+  volumes:
+    - taiga_db:/var/lib/postgresql/data
+  labels:
+    # Make db only run on hosts that do not have a availability=temporal label
+    io.rancher.scheduler.affinity:host_label: availability=permanent
+
+taiga:
+  tty: true
+  image: dalareo/taiga
+  stdin_open: true
+  # ports:
+    # - ${port}:80
+    # - 443:443 # To enable SSL, uncomment this line
+  links:
+    - postgres
+  environment:
+    - TAIGA_SLEEP=30
+    - TAIGA_HOSTNAME=${hostname}
+    # TAIGA_SSL: "True"  # To enable SSL, uncomment this line
+
+    - TAIGA_DB_HOST=postgres
+    - TAIGA_DB_NAME=taiga
+    - TAIGA_DB_USER=taiga
+    - TAIGA_DB_PASSWORD=${db_password}
+    
+    - TAIGA_SECRET_KEY=${secret_key}
+
+    - EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+    - EMAIL_USE_TLS=True
+    - EMAIL_HOST=${smtp_host}
+    - EMAIL_PORT=587
+    - EMAIL_HOST_USER=${smtp_user}
+    - EMAIL_HOST_PASSWORD=${smtp_password}
+    
+    - DEFAULT_FROM_EMAIL=${default_email}
+
+  volumes:
+    - taiga_media:/usr/src/taiga-back/media
+    - taiga-conf:/taiga
+  labels:
+    # Make db only run on hosts that do not have a availability=temporal label
+    io.rancher.scheduler.affinity:host_label: availability=permanent
