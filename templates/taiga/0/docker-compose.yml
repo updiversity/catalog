@@ -14,7 +14,7 @@ postgres:
 
 taiga:
   tty: true
-  image: dalareo/taiga
+  image: updiversity/taiga
   stdin_open: true
   # ports:
     # - ${port}:80
@@ -24,13 +24,12 @@ taiga:
   environment:
     - TAIGA_SLEEP=30
     - TAIGA_HOSTNAME=${hostname}
-    # TAIGA_SSL: "True"  # To enable SSL, uncomment this line
 
     - TAIGA_DB_HOST=postgres
     - TAIGA_DB_NAME=taiga
     - TAIGA_DB_USER=taiga
     - TAIGA_DB_PASSWORD=${db_password}
-    
+
     - TAIGA_SECRET_KEY=${secret_key}
 
     - EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
@@ -39,7 +38,7 @@ taiga:
     - EMAIL_PORT=587
     - EMAIL_HOST_USER=${smtp_user}
     - EMAIL_HOST_PASSWORD=${smtp_password}
-    
+
     - DEFAULT_FROM_EMAIL=${default_email}
 
   volumes:
