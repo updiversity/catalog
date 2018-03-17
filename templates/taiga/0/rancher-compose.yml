@@ -46,8 +46,3 @@
       required: true
       default: "no-reply@taiga.updiversity.io"
       type: "string"
-    - variable: extra_labels
-      description: "Additional Labels"
-      label: "Default additional labels"
-      required: false
-      type: string
