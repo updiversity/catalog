@@ -1,5 +1,5 @@
 .catalog:
-  name: "DNS Update (RFC2136)"
+  name: "RFC2136"
   version: "v0.1-updiversity"
   description: "Rancher External DNS service powered by any RFC2136 compatible DNS server. Requires Rancher version v1.1.0"
   minimum_rancher_version: v1.6.0-rc1
@@ -53,6 +53,7 @@
       required: false
 
 rfc2136dns:
+  scale: 1
   health_check:
     port: 1000
     interval: 5000

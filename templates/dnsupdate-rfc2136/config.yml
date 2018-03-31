@@ -1,5 +1,5 @@
-name: DNS Update (RFC2136)
+name: RFC2136
 description: |
-  Update Service of DNS Records
+   Update Service of DNS Records
 version: v0.1-updiversity
 category: Proyectos
