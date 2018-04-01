@@ -1,0 +1,38 @@
+openvpn-data:
+  labels:
+    io.rancher.container.start_once: 'true'
+  entrypoint:
+  - /bin/true
+  image: busybox
+  volumes:
+  - /etc/openvpn/
+
+openvpn-server:
+  ports:
+  - 1194:1194/tcp
+  environment:
+    AUTH_METHOD: ${AUTH_URL}
+    AUTH_URL: ${AUTH_URL}
+    CERT_COUNTRY: ${CERT_COUNTRY}
+    CERT_PROVINCE: ${CERT_PROVINCE}
+    CERT_CITY: ${CERT_CITY}
+    CERT_ORG: ${CERT_ORG}
+    CERT_EMAIL: ${CERT_EMAIL}
+    CERT_OU: ${CERT_OU}
+    REMOTE_IP: ${REMOTE_IP}
+    REMOTE_PORT: ${REMOTE_PORT}
+    VPN_PROTO: ${VPN_PROTO}
+    VPNPOOL_NETWORK: ${VPNPOOL_NETWORK}
+    VPNPOOL_CIDR: ${VPNPOOL_CIDR}
+    OPENVPN_EXTRACONF: ${OPENVPN_EXTRACONF}
+    PUSHDNS: ${PUSHDNS}
+    PUSHSEARCH: ${PUSHSEARCH}
+    ROUTE_NETWORK: ${ROUTE_NETWORK}
+    ROUTE_NETMASK: ${ROUTE_NETMASK}
+  labels:
+    io.rancher.sidekicks: openvpn-data
+    io.rancher.container.pull_image: always
+  image: updiversity/rancher-openvpn
+  privileged: true
+  volumes_from:
+  - openvpn-data
