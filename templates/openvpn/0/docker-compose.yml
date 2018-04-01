@@ -32,7 +32,7 @@ openvpn-server:
   labels:
     io.rancher.sidekicks: openvpn-data
     io.rancher.container.pull_image: always
-  image: updiversity/rancher-openvpn
+  image: updiversity/docker-openvpn
   privileged: true
   volumes_from:
   - openvpn-data
