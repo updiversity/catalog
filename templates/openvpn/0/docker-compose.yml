@@ -11,7 +11,7 @@ openvpn-server:
   ports:
   - 1194:1194/tcp
   environment:
-    AUTH_METHOD: ${AUTH_URL}
+    AUTH_METHOD: ${AUTH_METHOD}
     AUTH_URL: ${AUTH_URL}
     CERT_COUNTRY: ${CERT_COUNTRY}
     CERT_PROVINCE: ${CERT_PROVINCE}
